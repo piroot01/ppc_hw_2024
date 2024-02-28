@@ -1,0 +1,7 @@
+config.min=-99
+config.max=150
+config.width=3
+config.align=left
+=
+10;20;20;SUM(A:C)
+-10;-20;-30;-40;-50
