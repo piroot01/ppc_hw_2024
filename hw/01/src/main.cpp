@@ -1,12 +1,16 @@
 #include <Config.h>
-
-#include <iostream>
+#include <ConfigReader.h>
+#include <InputStreamReader.h>
 
 int main()
 {
-    Config config(10, 10, 10, Align::RIGHT);
+    InputStreamReader inputStreamReader;
+    inputStreamReader.load();
 
-    std::cout << "test" << '\n';
+    Config config;
+    ConfigReader configReader(config);
+    configReader.read(inputStreamReader);
+    config.printConfig();
 
     return 0;
 }

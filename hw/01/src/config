@@ -1,0 +1,4 @@
+config.min=-99
+config.max=150
+config.width=3
+config.align=left
