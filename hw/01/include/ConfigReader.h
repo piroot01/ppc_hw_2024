@@ -3,7 +3,9 @@
 
 
 #include <Config.h>
-#include <InputStreamReader.h>
+#include <InputFormat.h>
+
+
 #include <iostream>
 #include <fstream>
 #include <string>
@@ -25,7 +27,7 @@ class ConfigReader
 {
 public:
     ConfigReader(Config& config);
-    bool read(const InputStreamReader& inputStreamReader);
+    bool read(const inputFormat_t& input);
 
 private:
     Config& m_config;

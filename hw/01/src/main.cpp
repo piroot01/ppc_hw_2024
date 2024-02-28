@@ -1,15 +1,18 @@
 #include <Config.h>
 #include <ConfigReader.h>
-#include <InputStreamReader.h>
+#include <InputPreparator.h>
 
 int main()
 {
-    InputStreamReader inputStreamReader;
-    inputStreamReader.load();
+    InputPreparator inputPreparator;
 
     Config config;
     ConfigReader configReader(config);
-    configReader.read(inputStreamReader);
+
+    inputPreparator.load();
+    inputPreparator.split();
+    inputPreparator.prepareConfig(configReader);
+
     config.printConfig();
 
     return 0;

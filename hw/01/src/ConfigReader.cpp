@@ -18,13 +18,13 @@ ConfigReader::ConfigReader(Config& config) :
 }
 
 
-bool ConfigReader::read(const InputStreamReader& inputStreamReader)
+bool ConfigReader::read(const inputFormat_t& input)
 {
-    const auto lineCount = inputStreamReader.getDataLineCount();
+    const auto lineCount = input.size();
     std::string line;
     for (uint32_t lineNum = 0; lineNum < lineCount; ++lineNum)
     {
-        inputStreamReader.getLine(lineNum, line);
+        line = input.at(lineNum);
         const std::size_t dotPos = line.find(configDelim);
         const std::size_t valuePos = line.find(valueDelim);
         if (line.substr(0, dotPos) == std::string("config"))
