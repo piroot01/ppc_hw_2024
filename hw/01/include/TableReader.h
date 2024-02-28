@@ -9,6 +9,7 @@
 #include <iostream>
 #include <fstream>
 #include <string>
+#include <sstream>
 
 
 class TableErrorReport
@@ -25,8 +26,16 @@ public:
     bool read(const inputFormat_t& input);
 
 private:
+    void processLine(const std::string& line);
+    int32_t parseSum(const std::string& cell);
+
+private:
     Table& m_table;
+    uint32_t m_currentRow = {0};
     TableErrorReport m_configErrorReport;
+
+    const char m_tableDelim = ';';
+    const std::string m_sumDesc = "SUM";
 
 };
 

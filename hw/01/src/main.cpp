@@ -13,7 +13,7 @@ int main()
     inputPreparator.split();
     inputPreparator.prepareConfig(configReader);
 
-    config.printConfig();
+    //config.printConfig();
 
     return 0;
 }
