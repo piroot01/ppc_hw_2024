@@ -22,12 +22,12 @@ public:
 class TableReader
 {
 public:
-    TableReader(Table& config);
-    bool read(const inputFormat_t& input);
+    TableReader(Table& table);
+    bool read(const inputFormat_t&& input);
 
 private:
     void processLine(const std::string& line);
-    int32_t parseSum(const std::string& cell);
+    int32_t parseSum(const std::string& cell, const tableRow_t& row);
 
 private:
     Table& m_table;

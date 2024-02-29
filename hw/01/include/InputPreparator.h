@@ -32,6 +32,7 @@ inline void InputPreparator::load()
 {
     m_inputStreamReader.load();
     m_inputStreamReader.printStream();
+    std::cout << "---------------------\n";
 }
 
 

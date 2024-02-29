@@ -15,6 +15,7 @@ void InputStreamReader::load()
     m_data.pop_back();
 }
 
+
 void InputStreamReader::printStream()
 {
     for (const auto& line : m_data)

@@ -13,7 +13,7 @@ class InputStreamReader
 public:
     void load();
     void printStream();
-    uint32_t getDataLineCount() const;
+    constexpr uint32_t getDataLineCount() const;
     bool getLine(const uint32_t lineNum, std::string& string) const;
 
 private:
@@ -22,7 +22,7 @@ private:
 };
 
 
-inline uint32_t InputStreamReader::getDataLineCount() const
+constexpr inline uint32_t InputStreamReader::getDataLineCount() const
 {
     return m_data.size();
 }
