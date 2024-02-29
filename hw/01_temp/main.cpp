@@ -58,6 +58,16 @@ int main(){
     }
 
     checkConfig(configVect);
+    if (getParamFromConfig(configVect, "width") <= 0)
+    {
+        std::cerr << "Invalid configuration\n";
+        return 102;
+    }
+    if (getParamFromConfig(configVect, "width") < getMaxNumSize(values))
+    {
+        std::cerr << "Cell is too short\n";
+        return 103;
+    }
     if (!checkTable(configVect, values))
     {
         std::cerr << "Out of range\n";
@@ -67,20 +77,6 @@ int main(){
     std::cout << '\n';
     printTable(configVect, values);
 
-    //printTableLine(5, 5);
-    //printTableHeader(5, 5, Align::RIGHT);
-    //printTableLine(5, 5);
-
-
-    // print table
-    /*
-    for (std::size_t i = 0; i < values.size(); i++){
-        for (std::size_t j = 0; j < values[i].size(); j++){
-            std::cout << values[i][j] << " ";
-        }
-        std::cout << std::endl;
-    }
-    */
     return 0;
 }
 
@@ -270,4 +266,19 @@ bool checkTable(const std::vector<config_t>& config, const table_t& table)
         }
     }
     return true;
+}
+
+
+uint32_t getMaxNumSize(const table_t& table)
+{
+    uint32_t maxNumSize = 0;
+    for (const std::vector<int>& row : table)
+    {
+        for (const auto cell : row)
+        {
+            if (std::to_string(cell).size() > maxNumSize)
+                maxNumSize = std::to_string(cell).size();
+        }
+    }
+    return maxNumSize;
 }

@@ -39,4 +39,6 @@ void checkConfig(std::vector<config_t>& config);
 
 bool checkTable(const std::vector<config_t>& config, const table_t& table);
 
+uint32_t getMaxNumSize(const table_t& table);
+
 #endif
