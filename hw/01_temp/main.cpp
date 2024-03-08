@@ -63,15 +63,18 @@ int main(){
         std::cerr << "Invalid configuration\n";
         return 102;
     }
-    if (getParamFromConfig(configVect, "width") < getMaxNumSize(values))
+    if (getParamFromConfig(configVect, "stretch") == notFound and getParamFromConfig(configVect, "header") == notFound)
     {
-        std::cerr << "Cell is too short\n";
-        return 103;
-    }
-    if (!checkTable(configVect, values))
-    {
-        std::cerr << "Out of range\n";
-        return 100;
+        if ((uint32_t)getParamFromConfig(configVect, "width") < getMaxNumSize(values))
+            {
+            std::cerr << "Cell is too short\n";
+            return 103;
+        }
+        if (!checkTable(configVect, values))
+        {
+            std::cerr << "Out of range\n";
+            return 100;
+        }
     }
     printConfig(configVect);
     std::cout << '\n';
@@ -94,6 +97,16 @@ void printConfig(const std::vector<config_t>& configVect)
             std::cout << config.value << '\n';
             break;
         }
+    }
+
+    if (getParamFromConfig(configVect, "stretch") != notFound)
+    {
+        std::cout << "config.stretch=" << getParamFromConfig(configVect, "stretch") << '\n';
+    }
+
+    if (getParamFromConfig(configVect, "header") != notFound)
+    {
+        std::cout << "config.header=" << getParamFromConfig(configVect, "header") << '\n';
     }
 }
 
@@ -132,31 +145,51 @@ void printTableHeader(const uint32_t collNum, const uint32_t collWidth, const Al
 }
 
 
-void printTableBody(const uint32_t collNum, const uint32_t collWidth, const Align align, const std::vector<int32_t>& row, const uint32_t index)
+void printTableBody(const uint32_t collNum, const uint32_t collWidth, const Align align, const std::vector<int32_t>& row, const uint32_t index, const bool printHeader)
 {
-    if (align == Align::LEFT)
+    // prints the first cell of the row
+    if (printHeader)
     {
-        std::string cellValue = " ";
-        cellValue += std::to_string(index);
-        std::cout << "|" << std::setw(collWidth) << std::left << cellValue;
+        if (align == Align::LEFT)
+        {
+            std::string cellValue = " ";
+            cellValue += std::to_string(index);
+            std::cout << "|" << std::setw(collWidth) << std::left << cellValue;
+        }
+        else
+            std::cout << "|" << std::setw(collWidth - 1) << index << ' ';
+        std::cout << '|';
     }
     else
-        std::cout << "|" << std::setw(collWidth - 1) << index << ' ';
-    std::cout << '|';
+    {
+        std::cout << '|';
+    }
+    
+
     for (uint32_t i = 0; i < collNum - 1; i++)
     {
         if (align == Align::LEFT)
         {
             std::string cellValue = " ";
             if (i < row.size())
-                cellValue += std::to_string(row[i]);
+            {
+                if (std::to_string(row[i]).size() > collWidth - 2)
+                    cellValue += std::string(collWidth - 2, '#');
+                else
+                    cellValue += std::to_string(row[i]);
+            }
             std::cout << std::setw(collWidth) << std::left << cellValue;
         }
         else
         {
             std::string cellValue = "";
             if (i < row.size())
-                cellValue += std::to_string(row[i]);
+            {
+                if (std::to_string(row[i]).size() > collWidth - 2)
+                    cellValue += std::string(collWidth - 2, '#');
+                else
+                    cellValue += std::to_string(row[i]);
+            }
             std::cout << std::setw(collWidth - 1) << cellValue << ' ';
         }
         std::cout << '|';
@@ -181,8 +214,8 @@ void printTable(const std::vector<config_t>& config, const table_t& table)
         }
     }
 
-    int32_t min = getParamFromConfig(config, "min");
-    int32_t max = getParamFromConfig(config, "max");
+    //int32_t min = getParamFromConfig(config, "min");
+    //int32_t max = getParamFromConfig(config, "max");
     uint32_t width = getParamFromConfig(config, "width");
 
     uint32_t maxRowLength = 0;
@@ -192,14 +225,25 @@ void printTable(const std::vector<config_t>& config, const table_t& table)
             maxRowLength = row.size();
     }
 
-    printTableLine(maxRowLength + 1, width + 2);
-    printTableHeader(maxRowLength + 1, width + 2, tableAlign);
-    printTableLine(maxRowLength + 1, width + 2);
+    // adjust coll width
+    if (getParamFromConfig(config, "stretch") == 1)
+        width = getMaxNumSize(table);
+
+    bool printHeader = getParamFromConfig(config, "header");
+
+    if (printHeader)
+    {
+        printTableLine(maxRowLength + 1, width + 2);
+        printTableHeader(maxRowLength + 1, width + 2, tableAlign);
+    }
+
+    printTableLine((printHeader) ? maxRowLength + 1 : maxRowLength, width + 2);
     uint32_t index = 1;
+
     for (const auto& row : table)
     {
-        printTableBody(maxRowLength + 1, width + 2, tableAlign, row, index);
-        printTableLine(maxRowLength + 1, width + 2);
+        printTableBody(maxRowLength + 1, width + 2, tableAlign, row, index, printHeader);
+        printTableLine((printHeader) ? maxRowLength + 1 : maxRowLength, width + 2);
         index++;
     }
 }
