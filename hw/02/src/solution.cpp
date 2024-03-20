@@ -26,7 +26,7 @@ void NetworkInterface::print_timetable(const std::string& stop)
 
 void NetworkInterface::print_table(const Line& line, const std::string& stop_name, const uint32_t line_num)
 {
-    int h, m ,s;
+    //int h, m ,s;
     std::cout << "+";
     for (int i = 0; i < 78; i++)
     {
@@ -58,6 +58,7 @@ void NetworkInterface::print_table(const Line& line, const std::string& stop_nam
         std::cout << "-" ;
     }
     std::cout << "+" << endl;
+
     for (uint32_t h = 0; h < 24; ++h)
     {
         auto foundedStop = std::find(line.stops.begin(), line.stops.end(), stop_name);
@@ -74,7 +75,7 @@ std::string NetworkInterface::get_times(const std::vector<PlanConn>& conn, const
     for (const auto& plann_conn : conn)
     {
         auto time = plann_conn[stop_index].ti;
-        if (time.gets() >= hour * 3600 and time.gets() < (hour + 1) * 3600)
+        if ((uint32_t)time.gets() >= hour * 3600 and (uint32_t)time.gets() < (hour + 1) * 3600)
         {
             time.gett(hh, mm, ss);
             times += std::to_string(mm);
