@@ -1,6 +1,5 @@
 #include "MHD/doprava.hpp"
 #include "MHD/solution.h"
-#include <exception>
 
 
 using namespace std;

@@ -1,0 +1,75 @@
+Loaded 45 names from driver_list.txt.
+Loaded network from network.txt.
++------------------------------------------------------------------------------+
+| Line: 0                                                                      |
++---+----+-----------------------------++---+----+-----------------------------+
+| d | rT | ==>                         || d | rT | <==                         |
++---+----+-----------------------------++---+----+-----------------------------+
+| 0 | 00 | U Petnika                   || 0 | 00 | Studijni odd.               |
+| 3 | 03 | Pred Menzou                 || 2 | 02 | Rektorat                    |
+| 2 | 05 | Matematiku                  || 1 | 03 | Dekanat                     |
+| 2 | 07 | Fyziku                      || 2 | 06 | Knihovnicka                 |
+| 2 | 09 | Radioelektronicka           || 2 | 08 | U Bufetu                    |
+| 1 | 10 | Elektromagnetickeho pole    || 2 | 10 | U Zavrene skoly             |
+| 2 | 12 | Mikroelektronicka           || 1 | 11 | Nosterova                   |
+| 1 | 14 | Studentska                  || 1 | 13 | Paterova                    |
+| 1 | 15 | Paterova                    || 1 | 14 | Studentska                  |
+| 1 | 16 | Nosterova                   || 1 | 16 | Mikroelektronicka           |
+| 1 | 18 | U Zavrene skoly             || 2 | 18 | Elektromagnetickeho pole    |
+| 2 | 20 | U Bufetu                    || 1 | 19 | Radioelektronicka           |
+| 2 | 22 | Knihovnicka                 || 2 | 21 | Fyziku                      |
+| 2 | 24 | Dekanat                     || 2 | 23 | Matematiku                  |
+| 1 | 26 | Rektorat                    || 2 | 25 | Pred Menzou                 |
+| 2 | 28 | Studijni odd.               || 3 | 28 | U Petnika                   |
++---+----+-----------------------------++---+----+-----------------------------+
++------------------------------------------------------------------------------+
+| Line: 1                                                                      |
++---+----+-----------------------------++---+----+-----------------------------+
+| d | rT | ==>                         || d | rT | <==                         |
++---+----+-----------------------------++---+----+-----------------------------+
+| 0 | 00 | Italska                     || 0 | 00 | Spanelska                   |
+| 3 | 03 | Desinfekcni                 || 2 | 02 | V Karantene                 |
+| 3 | 06 | Lihovar                     || 2 | 04 | Na Ventilaci                |
+| 3 | 09 | Za Filtrem                  || 2 | 06 | Infekcni                    |
+| 3 | 12 | Testovaci                   || 2 | 08 | Svepomoci                   |
+| 2 | 14 | Respiratoru                 || 2 | 10 | Remdesivirova               |
+| 2 | 16 | Petrackovo namesti          || 2 | 12 | Prymulova                   |
+| 2 | 18 | Ochrannych stitu            || 2 | 14 | U Zavrene skoly             |
+| 2 | 20 | U Zavrene skoly             || 2 | 16 | Ochrannych stitu            |
+| 2 | 22 | Prymulova                   || 2 | 18 | Petrackovo namesti          |
+| 2 | 24 | Remdesivirova               || 2 | 20 | Respiratoru                 |
+| 2 | 26 | Svepomoci                   || 2 | 22 | Testovaci                   |
+| 2 | 28 | Infekcni                    || 3 | 25 | Za Filtrem                  |
+| 2 | 30 | Na Ventilaci                || 3 | 28 | Lihovar                     |
+| 2 | 32 | V Karantene                 || 3 | 31 | Desinfekcni                 |
+| 2 | 34 | Spanelska                   || 3 | 34 | Italska                     |
++---+----+-----------------------------++---+----+-----------------------------+
++------------------------------------------------------------------------------+
+| Line: 2                                                                      |
++---+----+-----------------------------++---+----+-----------------------------+
+| d | rT | ==>                         || d | rT | <==                         |
++---+----+-----------------------------++---+----+-----------------------------+
+| 0 | 00 | Vitkov                      || 0 | 00 | Maternovy sady              |
+| 2 | 02 | Dobesova alej               || 2 | 02 | Pani Vyborne                |
+| 2 | 04 | Navratilova                 || 2 | 04 | Petrackovo namesti          |
+| 2 | 06 | Nentvichova                 || 2 | 06 | Patova trida                |
+| 2 | 09 | Studentska                  || 2 | 09 | Studentska                  |
+| 2 | 11 | Patova trida                || 2 | 11 | Nentvichova                 |
+| 2 | 13 | Petrackovo namesti          || 2 | 13 | Navratilova                 |
+| 2 | 15 | Pani Vyborne                || 2 | 15 | Dobesova alej               |
+| 2 | 18 | Maternovy sady              || 2 | 18 | Vitkov                      |
++---+----+-----------------------------++---+----+-----------------------------+
++------------------------------------------------------------------------------+
+| Line: 3                                                                      |
++---+----+-----------------------------++---+----+-----------------------------+
+| d | rT | ==>                         || d | rT | <==                         |
++---+----+-----------------------------++---+----+-----------------------------+
+| 0 | 00 | Svepomoci                   || 0 | 00 | Posledni role               |
+| 2 | 02 | Dobrovolniku                || 2 | 02 | Papirenske zavody           |
+| 2 | 04 | Lekaru                      || 2 | 04 | Bezrouskova                 |
+| 2 | 06 | Svadlen                     || 2 | 06 | Cesko-cinskeho pratelstvi   |
+| 2 | 09 | Cesko-cinskeho pratelstvi   || 2 | 09 | Svadlen                     |
+| 2 | 11 | Bezrouskova                 || 2 | 11 | Lekaru                      |
+| 2 | 13 | Papirenske zavody           || 2 | 13 | Dobrovolniku                |
+| 2 | 15 | Posledni role               || 2 | 15 | Svepomoci                   |
++---+----+-----------------------------++---+----+-----------------------------+

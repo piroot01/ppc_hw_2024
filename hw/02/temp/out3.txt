@@ -1,0 +1,51 @@
+Loaded 45 names from driver_list.txt.
+Loaded network from network.txt.
++----------------------+---+----+-----+
+| Driver Name          | L | nC | nSt |
++----------------------+---+----+-----+
+| Nelson Piquet        | 0 | 11 | 176 |
+| Ayrton Senna         | 0 | 10 | 160 |
+| Graham Hill          | 0 | 10 | 160 |
+| Jackie Stewart       | 0 | 10 | 160 |
+| Niki Lauda           | 0 | 10 | 160 |
+| Emerson Fittipaldi   | 0 |  9 | 144 |
+| Fernando Alonso      | 1 |  9 | 144 |
+| Jacques Villeneuve   | 1 |  9 | 144 |
+| Jim Clark            | 0 |  9 | 144 |
+| Keke Rosberg         | 0 |  9 | 144 |
+| Sebastian Vettel     | 1 |  9 | 144 |
+| Alain Prost          | 1 |  8 | 128 |
+| Jack Brabham         | 0 |  8 | 128 |
+| James Hunt           | 0 |  8 | 128 |
+| Jochen Rindt         | 0 |  8 | 128 |
+| John Surtees         | 0 |  8 | 128 |
+| Kimi Raikkonen       | 1 |  8 | 128 |
+| Lewis Hamilton       | 1 |  8 | 128 |
+| Michael Schumacher   | 1 |  8 | 128 |
+| Nico Rosberg         | 1 |  8 | 128 |
+| Nigel Mansell        | 1 |  8 | 128 |
+| Damon Hill           | 1 |  7 | 112 |
+| Jenson Button        | 1 |  7 | 112 |
+| Mika Hakkinen        | 1 |  7 | 112 |
+| Alberto Ascari       | 2 | 12 | 108 |
+| Phil Hill            | 2 | 10 |  90 |
+| Alan Jones           | 2 |  9 |  81 |
+| Denny Hulme          | 2 |  9 |  81 |
+| Giuseppe Farina      | 2 |  9 |  81 |
+| Mike Hawthorn        | 2 |  9 |  81 |
+| Henri Toivonen       | 3 | 10 |  80 |
+| Timo Salonen         | 3 | 10 |  80 |
+| Carlos Sainz         | 3 |  9 |  72 |
+| Jody Scheckter       | 2 |  8 |  72 |
+| Juan M. Fangio       | 2 |  8 |  72 |
+| Mario Andretti       | 2 |  8 |  72 |
+| Miki Biasion         | 3 |  9 |  72 |
+| Stig Blomqvist       | 3 |  9 |  72 |
+| Ari Vatanen          | 3 |  8 |  64 |
+| Michele Mouton       | 3 |  8 |  64 |
+| Richard Burns        | 3 |  8 |  64 |
+| Petter Solberg       | 3 |  7 |  56 |
+| Bruce McLaren        | X | XX | XXX |
+| Eddie Irvine         | X | XX | XXX |
+| Jean Alesi           | X | XX | XXX |
++----------------------+---+----+-----+
