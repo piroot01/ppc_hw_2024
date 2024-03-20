@@ -121,6 +121,7 @@ protected:
 public:
     Network() = default;
     Network(const Network&);
+    Network(const Network&& network);
     //Line getLine(int ln) const; // returns line with number ln
     //int nlines() const; // maximal number of lines
     //Line operator()(int ln) const { return getLine(ln); } // Alias For getLine

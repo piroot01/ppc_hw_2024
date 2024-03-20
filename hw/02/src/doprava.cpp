@@ -218,7 +218,9 @@ void Network::loadFromFile(string filename)
     }
 }
 
-Network::Network(const Network&)
+Network::Network(const Network&) = default;
+
+Network::Network(const Network&& network)
 {
-    std::cout << "copied\n";
+    this->lines = std::move(network.lines);
 }

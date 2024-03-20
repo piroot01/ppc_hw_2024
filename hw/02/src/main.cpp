@@ -1,5 +1,6 @@
 #include "MHD/doprava.hpp"
 #include "MHD/solution.h"
+#include <exception>
 
 
 using namespace std;
@@ -159,7 +160,7 @@ int main(int argc, char** argv) {
         /* stop_in contains names of stops, for which the timetable is to be printed. */
         
         // This is an example, how it can be done using lambda-function
-        //for_each(stop_in.begin(), stop_in.end(), [&] (string stop_name) {print_timetable(net,stop_name);} );
+        for_each(stop_in.begin(), stop_in.end(), [&] (string stop_name) {networkInterface.print_timetable(stop_name);} );
         // This is an example, how it can be done using for-loop 
         // for( auto iter = stop_in.begin(); iter != stop_in.end(); iter++) print_timetable(net,*iter);
 
