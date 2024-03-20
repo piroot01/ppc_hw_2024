@@ -1,113 +1,7 @@
 #include "MHD/doprava.hpp"
 #include "MHD/solution.h"
 
-
 using namespace std;
-
-/*
-
-int j_val = 0;
-void print_table(Line linka, string stop, int line_number)
-{
-    int h, m ,s;
-    std::cout << "+";
-    for (int i = 0; i < 78; i++)
-        {
-            std::cout << "-" ;
-        }
-    std::cout << "+"<< std::endl;
-    std::cout << "| "<< setw(38) << left << stop;
-    std::cout << setw(37) << right << "Line: " << line_number << " |" << endl; 
-    std::cout << "+";
-     for (int i = 0; i < 78; i++)
-        {
-            if (i == 39 || i == 40)
-            {
-                std::cout << "+";
-                continue;
-            }
-            
-            std::cout << "-" ;
-        }
-        std::cout << "+" << endl;
-    std::cout << "| "<< "To: "<< setw(33) << left << linka.stops.back() << " || To: " << setw(32) << left << linka.stops.front()<< "|" << endl;
-    std::cout << "+";
-     for (int i = 0; i < 78; i++)
-        {
-            if (i == 39 || i == 40 || i == 4 || i == 45)
-            {
-                std::cout << "+";
-                continue;
-            }
-            
-            std::cout << "-" ;
-        }
-        std::cout << "+" << endl;
-    for (int i = 0; i < 24; i++)
-    {
-    
-        if (i < 9 || i == 0)
-        {
-             linka.conns_fwd.at(i).at(j_val).ti.gett(h, m, s);
-             
-         
-         std::cout << "| 0" << 00 + i << " |" << m << setw(38)<< right << " || 0" << 00 + i << " |"<< setw(33)<< right << "|" << endl;
-         
-        }
-        if (i > 9)
-        {
-            
-        std::cout << "| " << 00 + i << " |"<< setw(37)<< right << " || " << 00 + i << " |"<< setw(33)<< right << "|" << endl;
-        }
-        
-       
-    }
-    std::cout << "+";
-     for (int i = 0; i < 78; i++)
-        {
-            if (i == 39 || i == 40 || i == 4 || i == 45)
-            {
-                std::cout << "+";
-                continue;
-            }
-            
-            std::cout << "-" ;
-        }
-        std::cout << "+" << endl;
-
-    for (int i = 0; i < linka.conns_fwd.size(); i++)
-    {
-       
-        
-             linka.conns_fwd.at(i).at(j_val).ti.gett(h, m, s); 
-            std::cout << m <<" ";
-        
-        std::cout << endl;
-    }
-}
-
-void print_timetable(Network net, string stop)
-{
-   
-    for (int i = 0; i < net.nlines(); i++)
-    {
-       Line linka = net.getLine(i);
-        for (int j = 0; j < linka.stops.size(); j++)
-        {
-            j_val = j;
-            if (linka.stops.at(j) == stop)
-            {
-               
-                print_table(linka, stop, i);
-                break;
-
-
-            }
-        }
-    }
-   
-}
-*/
 
 int main(int argc, char** argv) {
 
@@ -119,6 +13,7 @@ int main(int argc, char** argv) {
     net.loadFromFile("network.txt");
 
     NetworkInterface networkInterface(std::move(net));
+    DriverStats driverStats(std::move(dl));
 
     // variables for argument decoding
     std::string flag_in;
@@ -170,7 +65,7 @@ int main(int argc, char** argv) {
 
         /* here should start the code for printing line routes without stats*/
 
-
+        networkInterface.line_routing();
 
         /* here should end the code for printing line routes without stats*/
     }
@@ -179,7 +74,8 @@ int main(int argc, char** argv) {
 
         /* here should start the code for stops statistics for drivers */
 
-
+        networkInterface.fill_stats(driverStats);
+        driverStats.print_driver_stats();
 
         /* here should end the code for stops statistics for drivers */
     }
