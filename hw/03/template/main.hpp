@@ -94,12 +94,12 @@ public:
 
     void erase(const std::string& text);
 
-    constexpr inline uint32_t getSize() const;
+    inline uint32_t getSize() const;
 
 };
 
 
-constexpr uint32_t Database::getSize() const
+uint32_t Database::getSize() const
 {
     return m_db.size();
 }
