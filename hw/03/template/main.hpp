@@ -71,14 +71,14 @@ private:
 
 };
 
-class DatabasePrinter;
+class Printer;
 
 class Database {
 private:
     std::vector<const Item*> m_db;
 
 public:
-    Database();
+    Database() = default;
 
     ~Database();
 
@@ -105,7 +105,7 @@ uint32_t Database::getSize() const
 }
 
 
-class DatabasePrinter
+class Printer
 {
 public:
     static void printItem(std::ostream& os, const uint32_t id, const std::string& name, const std::string& info);
@@ -118,15 +118,9 @@ public:
 
     static void printHeader(std::ostream& os, const std::string& message);
 
-};
-
-
-class ProcessorPrinter
-{
-public:
     static void printBox(std::ostream& os, const std::string& message);
-
 };
+
 
 class Processor
 {
@@ -138,16 +132,6 @@ public:
     void execute(const std::string& commandName, const std::string& commandOpt);
 
 private:
-    void list();
-
-    void remove(const uint32_t id);
-
-    void find(const std::string& text);
-
-    void erase(const std::string& text);
-
-    void sort(const std::string& name, const std::string& method);
-
     Database& m_rDb;
 
 };

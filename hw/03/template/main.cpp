@@ -76,11 +76,6 @@ bool Journal::contains(const std::string& str) const
     return false;
 }
 
-Database::Database(){
-	// Database constructor
-}
-
-// add item to the database
 void Database::add(const Item* const item)
 {
     m_db.push_back(item);
@@ -88,16 +83,16 @@ void Database::add(const Item* const item)
 
 void Database::list() const
 {
-    DatabasePrinter::printHeader(std::cout, "List of all records");
-    DatabasePrinter::printSeparator(std::cout);
+    Printer::printHeader(std::cout, "List of all records");
+    Printer::printSeparator(std::cout);
     for (const auto& item : m_db)
     {
         std::string name, info;
         item->getData(name, info);
-        DatabasePrinter::printItem(std::cout, item->ID, name, info);
-        DatabasePrinter::printSeparator(std::cout);
+        Printer::printItem(std::cout, item->ID, name, info);
+        Printer::printSeparator(std::cout);
     }
-    DatabasePrinter::printFooter(std::cout, this->getSize());
+    Printer::printFooter(std::cout, this->getSize());
 }
 
 void Database::removeItem(const uint32_t id)
@@ -107,26 +102,26 @@ void Database::removeItem(const uint32_t id)
     if (match != m_db.end())
         m_db.erase(match);
     else
-        ProcessorPrinter::printBox(std::cout, "ID = " + std::to_string(id) + " is not in the database");
+        Printer::printBox(std::cout, "ID = " + std::to_string(id) + " is not in the database");
 }
 
 void Database::find(const std::string& str)
 {
     uint32_t count = 0;
-    DatabasePrinter::printHeader(std::cout, "List of all records");
-    DatabasePrinter::printSeparator(std::cout);
+    Printer::printHeader(std::cout, "Search for \"" + str + "\"");
+    Printer::printSeparator(std::cout);
     for (const auto& item : m_db)
     {
         if (item->contains(str))
         {
             std::string name, info;
             item->getData(name, info);
-            DatabasePrinter::printItem(std::cout, item->ID, name, info);
-            DatabasePrinter::printSeparator(std::cout);
+            Printer::printItem(std::cout, item->ID, name, info);
+            Printer::printSeparator(std::cout);
             count++;
         }
     }
-    DatabasePrinter::printFooter(std::cout, count);
+    Printer::printFooter(std::cout, count);
 }
 
 void Database::erase(const std::string& text)
@@ -173,7 +168,7 @@ Database::~Database(){
     m_db.clear();
 }
 
-void DatabasePrinter::printItem(std::ostream& os, const uint32_t id, const std::string& name, const std::string& info)
+void Printer::printItem(std::ostream& os, const uint32_t id, const std::string& name, const std::string& info)
 {
     os << "| "
        << std::right
@@ -195,19 +190,19 @@ void DatabasePrinter::printItem(std::ostream& os, const uint32_t id, const std::
        << "|\n";
 }
 
-void DatabasePrinter::printLine(std::ostream& os, const uint32_t len)
+void Printer::printLine(std::ostream& os, const uint32_t len)
 {
     os << '+' << std::string(len, '-') << '+';
 }
 
-void DatabasePrinter::printSeparator(std::ostream& os)
+void Printer::printSeparator(std::ostream& os)
 {
     os << "+----";
     printLine(os, 53);
     os << '\n';
 }
 
-void DatabasePrinter::printFooter(std::ostream& os, const uint32_t count)
+void Printer::printFooter(std::ostream& os, const uint32_t count)
 {
     os << "| "
        << std::left
@@ -218,7 +213,7 @@ void DatabasePrinter::printFooter(std::ostream& os, const uint32_t count)
     os << '\n';
 }
 
-void DatabasePrinter::printHeader(std::ostream& os, const std::string& message)
+void Printer::printHeader(std::ostream& os, const std::string& message)
 {
     printLine(os, 58);
     os << '\n';
@@ -230,15 +225,15 @@ void DatabasePrinter::printHeader(std::ostream& os, const std::string& message)
 }
 
 
-void ProcessorPrinter::printBox(std::ostream& os, const std::string& message)
+void Printer::printBox(std::ostream& os, const std::string& message)
 {
-    DatabasePrinter::printLine(os, 58);
+    Printer::printLine(os, 58);
     os << "\n| "
        << std::left
        << std::setw(57)
        << message
        << "|\n";
-    DatabasePrinter::printLine(os, 58);
+    Printer::printLine(os, 58);
     os << '\n';
 }
 
@@ -262,24 +257,24 @@ void Processor::interpret(const std::string& command)
 void Processor::execute(const std::string& commandName, const std::string& commandOpt)
 {
     if (!commandName.compare("list"))
-        list();
+        m_rDb.list();
     else if (!commandName.compare("remove"))
     {
         if (commandOpt.size() == 0)
         {
-            ProcessorPrinter::printBox(std::cout, "Command \"remove\" expects some argument");
+            Printer::printBox(std::cout, "Command \"remove\" expects some argument");
             return;
         }
-        remove(std::stoi(commandOpt));
+        m_rDb.removeItem(std::stoi(commandOpt));
     }
     else if (!commandName.compare("find"))
     {
         if (commandOpt.size() == 0)
         {
-            ProcessorPrinter::printBox(std::cout, "Command \"find\" expects some argument");
+            Printer::printBox(std::cout, "Command \"find\" expects some argument");
             return;
         }
-        find(commandOpt);
+        m_rDb.find(commandOpt);
     }
     else if (!commandName.compare("exit"))
     {
@@ -289,10 +284,10 @@ void Processor::execute(const std::string& commandName, const std::string& comma
     {
         if (commandOpt.size() == 0)
         {
-            ProcessorPrinter::printBox(std::cout, "Command \"erase\" expects some argument");
+            Printer::printBox(std::cout, "Command \"erase\" expects some argument");
             return;
         }
-        erase(commandOpt);
+        m_rDb.erase(commandOpt);
     }
     else if (!commandName.compare("sort"))
     {
@@ -310,41 +305,16 @@ void Processor::execute(const std::string& commandName, const std::string& comma
         }
         if (commandOpt.size() == 0)
         {
-            ProcessorPrinter::printBox(std::cout, "Command \"sort\" expects some argument");
+            Printer::printBox(std::cout, "Command \"sort\" expects some argument");
             return;
         }
-        sort(name, method);
+        m_rDb.sort(name, ((!method.compare("asc")) ? true : false));
     }
     else
     {
-        ProcessorPrinter::printBox(std::cout, "Unknown command \"" + commandName + "\"");
+        Printer::printBox(std::cout, "Unknown command \"" + commandName + "\"");
         return;
     }
-}
-
-void Processor::list()
-{
-    m_rDb.list();
-}
-
-void Processor::remove(const uint32_t id)
-{
-    m_rDb.removeItem(id);
-}
-
-void Processor::find(const std::string& text)
-{
-    m_rDb.find(text);
-}
-
-void Processor::erase(const std::string& text)
-{
-    m_rDb.erase(text);
-}
-
-void Processor::sort(const std::string& name, const std::string& method)
-{
-    m_rDb.sort(name, ((!method.compare("asc")) ? true : false));
 }
 
 
