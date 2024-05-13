@@ -7,6 +7,7 @@ TARGET = matrix
 BUILD_DIR = build
 
 all: $(TARGET)
+	mv $^ matrices
 
 $(TARGET): $(OBJECTS)
 	$(CC) $^ -o $@

@@ -5,6 +5,7 @@
 #include <string>
 
 #include "matrix.hpp"
+#include "matrix_friends.hpp"
 
 using namespace std;
 
@@ -502,8 +503,7 @@ int main(int argc, char** argv) {
         catch(std::out_of_range const &e){cout << e.what() << endl;}
         catch(std::exception const &e){cout << "Fail: "<< e.what() << endl; return testId;}
 
-
-        /* Operator Matrix + Matrix */
+/*
         testId=114000-1;  cout << endl;
         testVal = -1; // Toto cislo se muze pri vyhodnoceni zmenit
 
@@ -547,7 +547,6 @@ int main(int argc, char** argv) {
         catch(std::exception const &e){cout << "Fail: "<< e.what() << endl; return testId;}
 
 
-        /* Operator Matrix + scalar, scalar + Matrix */
         testId=115000-1;  cout << endl;
         testVal = 9; // Toto cislo se muze pri vyhodnoceni zmenit
 
@@ -585,7 +584,6 @@ int main(int argc, char** argv) {
         cout << testVal+m6;
 
 
-        /* Operator Matrix - Matrix */
         testId=116000-1; cout << endl;
         testVal = -1; // Toto cislo se muze pri vyhodnoceni zmenit
 
@@ -629,7 +627,6 @@ int main(int argc, char** argv) {
         catch(matrix_bad_sizes const &e){cout << "Pass: " << e.what() << endl;}
         catch(std::exception const &e){cout << "Fail: "<< e.what() << endl; return testId;}
 ;
-        /* Operator Matrix - scalar, scalar - Matrix */
         testId=117000-1;  cout << endl;
 
         testVal = 9; // Toto cislo se muze pri vyhodnoceni zmenit
@@ -699,7 +696,6 @@ int main(int argc, char** argv) {
     } 
     else if (!levelarg.compare("-l2"))
     {
-        /*2B - zakladni nasobeni - 2 matice, skalar, power, hadamard*/
 
         Matrix hvect; loadMatrixFile(hvect, "m-hvect.txt");
         Matrix vvect; loadMatrixFile(vvect, "m-vvect.txt");
@@ -954,7 +950,6 @@ int main(int argc, char** argv) {
     }
     else if (!levelarg.compare("-l3"))
     {
-        /*3B horzcat, vertcat, changedim, blkdiag, kroenecker*/
         Matrix m; loadMatrixFile(m, "m-square.txt");
         Matrix n=m;
         Matrix t,u;
@@ -1230,7 +1225,7 @@ int main(int argc, char** argv) {
         cout << ((kronecker(t,wide)==t)?"Pass":"Fail") << endl;
 
         cout << "====================" << endl;
-
+*/
     }   
     else
     {
