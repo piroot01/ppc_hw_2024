@@ -205,7 +205,9 @@ public:
         for (std::size_t index = 0, datasize = this->data.size(); index < datasize; ++index)
         {
             if (this->data[index] != other.data[index])
+            {
                 return false;
+            }
         }
 
         return true;
