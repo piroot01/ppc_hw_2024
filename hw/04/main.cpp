@@ -6,8 +6,12 @@
 
 #include "matrix.hpp"
 #include "matrix_friends.hpp"
+#include "matrix_exceptions.hpp"
 
 using namespace std;
+
+#define TEST_L1
+#define TEST_L2
 
 int main(int argc, char** argv) {
     string levelarg;
@@ -22,6 +26,8 @@ int main(int argc, char** argv) {
     int testId,testVal;
     if (!levelarg.compare("-l1"))
     {   
+
+#ifdef TEST_L1
         /*3B - nacteni matic ruznych rozmeru, tvorba ruznych matic (eye, zeros, uniform...), scitani a odcitani matic i skalaru*/
         
         /* Constructors */
@@ -503,7 +509,6 @@ int main(int argc, char** argv) {
         catch(std::out_of_range const &e){cout << e.what() << endl;}
         catch(std::exception const &e){cout << "Fail: "<< e.what() << endl; return testId;}
 
-/*
         testId=114000-1;  cout << endl;
         testVal = -1; // Toto cislo se muze pri vyhodnoceni zmenit
 
@@ -693,9 +698,13 @@ int main(int argc, char** argv) {
 
         cout << "====================" << endl;
 
+#endif
+
     } 
     else if (!levelarg.compare("-l2"))
     {
+
+#ifdef TEST_L2
 
         Matrix hvect; loadMatrixFile(hvect, "m-hvect.txt");
         Matrix vvect; loadMatrixFile(vvect, "m-vvect.txt");
@@ -947,9 +956,14 @@ int main(int argc, char** argv) {
         
         cout << "====================" << endl;
 
+#endif
+
     }
     else if (!levelarg.compare("-l3"))
     {
+
+#ifdef TEST_L3
+
         Matrix m; loadMatrixFile(m, "m-square.txt");
         Matrix n=m;
         Matrix t,u;
@@ -1225,7 +1239,8 @@ int main(int argc, char** argv) {
         cout << ((kronecker(t,wide)==t)?"Pass":"Fail") << endl;
 
         cout << "====================" << endl;
-*/
+#endif
+
     }   
     else
     {

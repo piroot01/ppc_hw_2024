@@ -23,13 +23,37 @@ public:
 
 public:
     template<class>
+    friend inline Matrix<T> operator+(const Matrix<T>& lhs, const Matrix<T>& rhs);
+
+    template<class>
+    friend inline Matrix<T> operator+(const T lhs, const Matrix<T>& rhs);
+
+    template<class>
+    friend inline Matrix<T> operator+(const Matrix<T>& lhs, const T rhs);
+
+    template<class>
+    friend inline Matrix<T> operator-(const Matrix<T>& lhs, const Matrix<T>& rhs);
+
+    template<class>
+    friend inline Matrix<T> operator-(const T lhs, const Matrix<T>& rhs);
+
+    template<class>
+    friend inline Matrix<T> operator-(const Matrix<T>& lhs, const T rhs);
+
+    template<class>
     friend inline std::ostream& operator<<(std::ostream& os, const Matrix<T>& matrix);
+
+    template<class>
+    friend Matrix<T> hadamard(const Matrix<T>& lhs, const Matrix<T>& rhs);
+    
+    template<class>
+    friend Matrix<T> power(const Matrix<T>& matrix, std::uint32_t power);
 
     template<class>
     friend inline void loadMatrixFile(Matrix<T>& matrix, const std::string& fname);
 
 public:
-    inline explicit Matrix(const std::size_t rowscols = 0) :
+    inline explicit Matrix(const std::int32_t rowscols = 0) :
         nrows(rowscols), ncols(rowscols)
     {
         if (rowscols < 0)
@@ -40,7 +64,7 @@ public:
         this->data.resize(nrows * ncols, 0);
     }
 
-    inline explicit Matrix(const std::size_t rows, const std::size_t cols) :
+    inline explicit Matrix(const std::int32_t rows, const std::int32_t cols) :
         nrows(rows), ncols(cols)
     {
         if (rows < 0 || cols < 0)
@@ -131,7 +155,7 @@ public:
 
     [[maybe_unused]] inline self& transpose()
     {
-        self transposed(*this);
+        self transposed(this->ncols, this->nrows);
 
         for (std::size_t i = 0; i < this->ncols; ++i)
         {
@@ -262,31 +286,6 @@ public:
 };
 
 /*
-
-// L1 Scitani matic.
-Matrix operator + (const Matrix & lhs, const Matrix & rhs);
-// L1 Pricteni skalaru k cele matici.
-Matrix operator + (const value & lhs, const Matrix & rhs);
-Matrix operator + (const Matrix & lhs, const value & rhs);
-
-// L1 Odecitani matic.
-Matrix operator - (const Matrix & lhs, const Matrix & rhs);
-// L1 Odecitani skalaru a matic.
-Matrix operator - (const value & lhs, const Matrix & rhs);
-Matrix operator - (const Matrix & lhs, const value & rhs);
-
-// L2 Maticovy soucin.
-Matrix operator * (const Matrix & lhs, const Matrix & rhs);
-Matrix operator * (const value & lhs, const Matrix & rhs);
-// L2 nasobeni matice skalarem
-Matrix operator * (const Matrix & lhs, const value & rhs);
-
-// L2 Hadamarduv soucin - prvek po prvku (ekvivalent .* z Matlabu).
-Matrix hadamard (const Matrix & lhs, const Matrix & rhs);
-
-// L2 Kladna mocnina ctvercove matice: power(A, 3) je ekvivalent A*A*A. Nulta mocnina je jednotkova matice. 
-Matrix power (const Matrix & m, unsigned int pow);
-
 // L3 Slouceni matic horizontalne (ekvivalent [lhs, rhs] z Matlabu).
 Matrix horzcat (const Matrix & lhs, const Matrix & rhs);
 
@@ -303,4 +302,5 @@ Matrix blkdiag (const value & lhs, const value & rhs);
 // L3 Kroneckeruv soucin matic dle definice: https://mathworld.wolfram.com/KroneckerProduct.html 
 Matrix kronecker (const Matrix & lhs, const Matrix & rhs);
 */
+
 #endif

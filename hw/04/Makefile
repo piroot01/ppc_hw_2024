@@ -1,5 +1,5 @@
 CC = g++
-CFLAGS = -Wall -Werror -pedantic -std=c++17
+CFLAGS = -Wall -Werror -pedantic -std=c++17 -g
 SOURCES = main.cpp
 OBJECTS = $(addprefix build/,$(SOURCES:.cpp=.o))
 
