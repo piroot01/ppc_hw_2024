@@ -157,9 +157,9 @@ public:
     {
         self transposed(this->ncols, this->nrows);
 
-        for (std::size_t i = 0; i < this->ncols; ++i)
+        for (std::size_t i = 0; i < this->nrows; ++i)
         {
-            for (std::size_t j = 0; j < this->nrows; ++j)
+            for (std::size_t j = 0; j < this->ncols; ++j)
             {
                 transposed.data[j * this->nrows + i] = this->data[i * this->ncols + j];
             }
@@ -187,7 +187,7 @@ public:
             }
         }
 
-        std::swap(this->data, resized);
+        std::swap(this->data, resized.data());
         this->nrows = rows;
         this->ncols = cols;
 

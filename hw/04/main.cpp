@@ -756,13 +756,22 @@ int main(int argc, char** argv) {
         //transpose
         testId=201000-1; cout << endl;
         cout << "=== TEST #" << ++testId << " ===" << endl;
-        t=square; t.transpose(); cout << t;
+        t=square;
+        t.transpose();
+        cout << t;
         cout << "=== TEST #" << ++testId << " ===" << endl;
-        t=tall; t.transpose(); cout << t;
+        t=tall;
+        t.transpose();
+        cout << t;
         cout << "=== TEST #" << ++testId << " ===" << endl;
-        t=wide; t.transpose(); cout << t;
+        t=wide;
+        t.transpose();
+        cout << t;
         cout << "=== TEST #" << ++testId << " ===" << endl;
-        t=ewide; u=ewide; u.transpose();u.transpose();
+        t=ewide;
+        u=ewide;
+        u.transpose();
+        u.transpose();
         cout << ((t == u)?"Pass":"Fail") << endl;
 
         //scale
@@ -824,7 +833,8 @@ int main(int argc, char** argv) {
         cout << hadamard(t,wide);
 
         cout << "=== TEST #" << ++testId << " ===" << endl;
-        t=etall; t.transpose();
+        t=etall; 
+        t.transpose();
         cout << ((hadamard(t,ewide) == hadamard(ewide,t))?"Pass":"Fail") << endl;
 
         // power
