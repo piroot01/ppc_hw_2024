@@ -22,6 +22,7 @@ public:
     using self = Matrix<T>;
 
 public:
+    // basic operators
     template<class>
     friend inline Matrix<T> operator+(const Matrix<T>& lhs, const Matrix<T>& rhs);
 
@@ -42,13 +43,37 @@ public:
 
     template<class>
     friend inline std::ostream& operator<<(std::ostream& os, const Matrix<T>& matrix);
-
+    // fancy operators
     template<class>
     friend Matrix<T> hadamard(const Matrix<T>& lhs, const Matrix<T>& rhs);
-    
+
     template<class>
     friend Matrix<T> power(const Matrix<T>& matrix, std::uint32_t power);
 
+    template<class>
+    Matrix<T> horzcat(const Matrix<T>& lhs, const Matrix<T>& rhs);
+
+    template<class>
+    Matrix<T> vertcat(const Matrix<T>& top, const Matrix<T>& bot);
+
+    template<class>
+    Matrix<T> blkdiag(const Matrix<T>& lhs, const Matrix<T>& rhs);
+
+    template<class>
+    Matrix<T> blkdiag(const T lhs, const Matrix<T>& rhs);
+
+    template<class>
+    Matrix<T> blkdiag(const Matrix<T>& lhs, const T rhs);
+
+    template<class>
+    Matrix<T> blkdiag(const T lhs, const T rhs);
+
+    template<class>
+    Matrix<T> kronecker(const Matrix<T>& lhs, const Matrix<T>& rhs);
+    // matrix printer
+    template<class>
+    friend inline std::ostream& operator<<(std::ostream& os, const Matrix<T>& matrix);
+    // matrix loader
     template<class>
     friend inline void loadMatrixFile(Matrix<T>& matrix, const std::string& fname);
 
@@ -172,22 +197,27 @@ public:
         return (*this);
     }
 
-    [[maybe_unused]] inline self& changedim(const std::size_t rows, const std::size_t cols)
+    [[maybe_unused]] inline self& changedim(const std::int32_t rows, const std::int32_t cols)
     {
         if (rows < 0 || cols < 0)
+        {
             throw matrix_negative_size();
+        }
 
         std::vector<value_type> resized(rows * cols, 0);
 
-        for (std::size_t i = 0; i < this->ncols; ++i)
+        std::size_t min_rows = std::min(this->nrows, static_cast<std::size_t>(rows));
+        std::size_t min_cols = std::min(this->ncols, static_cast<std::size_t>(cols));
+
+        for (std::size_t i = 0; i < min_rows; ++i)
         {
-            for (std::size_t j = 0; j < this->nrows; ++j)
+            for (std::size_t j = 0; j < min_cols; ++j)
             {
                 resized[i * cols + j] = this->data[i * this->ncols + j];
             }
         }
 
-        std::swap(this->data, resized.data());
+        this->data = resized;
         this->nrows = rows;
         this->ncols = cols;
 
@@ -286,23 +316,5 @@ public:
     std::vector<T> data = {};
 
 };
-
-/*
-// L3 Slouceni matic horizontalne (ekvivalent [lhs, rhs] z Matlabu).
-Matrix horzcat (const Matrix & lhs, const Matrix & rhs);
-
-// L3 Slouceni matic vertikalne (ekvivalent [top; bot] z Matlabu). 
-Matrix vertcat (const Matrix & top, const Matrix & bot);
-
-// L3 Diagonalni skladani matic. 
-// Vstupy musi byt ctvercove matice nebo skalary (chovaji se jako matice 1x1), zbytek doplnen nulami.
-Matrix blkdiag (const Matrix & lhs, const Matrix & rhs);
-Matrix blkdiag (const value & lhs, const Matrix & rhs);
-Matrix blkdiag (const Matrix & lhs, const value & rhs);
-Matrix blkdiag (const value & lhs, const value & rhs);
-
-// L3 Kroneckeruv soucin matic dle definice: https://mathworld.wolfram.com/KroneckerProduct.html 
-Matrix kronecker (const Matrix & lhs, const Matrix & rhs);
-*/
 
 #endif

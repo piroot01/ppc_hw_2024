@@ -126,24 +126,6 @@ inline Matrix<T> operator*(const Matrix<T>& lhs, const T rhs)
     return result;
 }
 
-template<class T>
-inline std::ostream& operator<<(std::ostream& os, const Matrix<T>& matrix)
-{
-    os << std::right;
-
-    std::size_t index = 0;
-    for (const auto value : matrix.data)
-    {
-        os << std::setw(ELEMENT_PRINT_SIZE) << value << ' ';
-        if (++index % matrix.ncols == 0)
-        {
-            os << '\n';
-        }
-    }
-
-    return os;
-}
-
 // fancy operators
 template<class T>
 Matrix<T> hadamard(const Matrix<T>& lhs, const Matrix<T>& rhs)
@@ -186,8 +168,185 @@ Matrix<T> power(const Matrix<T>& matrix, std::uint32_t power)
     return result;
 }
 
-// matrix loader
+template<class T>
+Matrix<T> horzcat(const Matrix<T>& lhs, const Matrix<T>& rhs)
+{
+    if (lhs.nrows != rhs.nrows)
+    {
+        throw matrix_bad_sizes();
+    }
 
+    Matrix<T> result(lhs.nrows, lhs.ncols + rhs.ncols);
+
+    for (std::size_t i = 0; i < lhs.nrows; ++i)
+    {
+        for (std::size_t j = 0; j < lhs.ncols; ++j)
+        {
+            result.data[i * result.ncols + j] = lhs.data[i * lhs.ncols + j];
+        }
+        for (std::size_t j = 0; j < rhs.ncols; ++j)
+        {
+            result.data[i * result.ncols + lhs.ncols + j] = rhs.data[i * rhs.ncols + j];
+        }
+    }
+
+    return result;
+}
+
+template<class T>
+Matrix<T> vertcat(const Matrix<T>& top, const Matrix<T>& bot)
+{
+    if (top.ncols != bot.ncols)
+    {
+        throw matrix_bad_sizes();
+    }
+
+/*
+    Matrix<T> result(top.nrows + bot.nrows, top.ncols);
+
+    for (int i = 0; i < top.nrows; ++i)
+    {
+        for (int j = 0; j < top.ncols; ++j)
+        {
+            result.data[i * top.ncols + j] = top.data[i * top.ncols + j];
+        }
+    }
+    
+    for (int i = 0; i < bot.nrows; ++i)
+    {
+        for (int j = 0; j < bot.ncols; ++j)
+        {
+            result.data[(top.nrows + i) * top.ncols + j] = bot.data[i * bot.ncols + j];
+        }
+    }
+*/
+    Matrix<T> result(top);
+
+    // update the dimensions
+    result.nrows += bot.nrows;
+
+    result.data.insert(result.data.end(), bot.data.begin(), bot.data.end());
+
+    return result;
+}
+
+template<class T>
+Matrix<T> blkdiag(const Matrix<T>& lhs, const Matrix<T>& rhs)
+{
+    if (lhs.nrows != lhs.ncols or rhs.nrows != rhs.ncols)
+    {
+        throw matrix_bad_sizes();
+    }
+
+    std::size_t result_rows = lhs.nrows + rhs.nrows;
+    std::size_t result_cols = lhs.ncols + rhs.ncols;
+
+    Matrix result(result_rows, result_cols);
+
+    for (std::size_t i = 0; i < lhs.nrows; ++i)
+    {
+        for (std::size_t j = 0; j < lhs.ncols; ++j)
+        {
+            result.data[i * result_cols + j] = lhs.data[i * lhs.ncols + j];
+        }
+    }
+
+    for (std::size_t i = 0; i < rhs.nrows; ++i)
+    {
+        for (std::size_t j = 0; j < rhs.ncols; ++j)
+        {
+            result.data[(i + lhs.nrows) * result_cols + (j + lhs.ncols)] = rhs.data[i * rhs.ncols + j];
+        }
+    }
+
+    return result;
+}
+
+template<class T>
+Matrix<T> blkdiag(const T lhs, const Matrix<T>& rhs)
+{
+    Matrix<T> lhs_matrix(1, 1);
+
+    lhs_matrix.data[0] = lhs;
+
+    return blkdiag(lhs_matrix, rhs);
+}
+
+template<class T>
+Matrix<T> blkdiag(const Matrix<T>& lhs, const T rhs)
+{
+    Matrix rhs_matrix(1, 1);
+
+    rhs_matrix.data[0] = rhs;
+
+    return blkdiag(lhs, rhs_matrix);
+}
+
+template<class T>
+Matrix<T> blkdiag(const T lhs, const T rhs)
+{
+    Matrix lhs_matrix(1, 1);
+
+    lhs_matrix.data[0] = lhs;
+
+    Matrix rhs_matrix(1, 1);
+
+    rhs_matrix.data[0] = rhs;
+
+    return blkdiag(lhs_matrix, rhs_matrix);
+}
+
+template<class T>
+Matrix<T> kronecker(const Matrix<T>& lhs, const Matrix<T>& rhs)
+{
+    std::size_t result_rows = lhs.nrows * rhs.nrows;
+
+    std::size_t result_cols = lhs.ncols * rhs.ncols;
+
+    Matrix result(result_rows, result_cols);
+
+    for (std::size_t i = 0; i < lhs.nrows; ++i)
+    {
+        for (std::size_t j = 0; j < lhs.ncols; ++j)
+        {
+            for (std::size_t k = 0; k < rhs.nrows; ++k)
+            {
+                for (std::size_t l = 0; l < rhs.ncols; ++l)
+                {
+                    result.data[(i * rhs.nrows + k) * result_cols + (j * rhs.ncols + l)] = lhs.data[i * lhs.ncols + j] * rhs.data[k * rhs.ncols + l];
+                }
+            }
+        }
+    }
+
+    return result;
+}
+
+// matrix printer
+template<class T>
+inline std::ostream& operator<<(std::ostream& os, const Matrix<T>& matrix)
+{
+    os << std::right;
+
+    if (matrix.data.empty())
+    {
+        os << '\n';
+    }
+
+    std::size_t index = 0;
+    for (const auto value : matrix.data)
+    {
+        os << std::setw(ELEMENT_PRINT_SIZE) << value << ' ';
+        if (++index % matrix.ncols == 0)
+        {
+            os << '\n';
+        }
+    }
+
+    return os;
+}
+
+// matrix loader
 template<class T>
 inline void loadMatrixFile(Matrix<T>& matrix, const std::string& fname)
 {

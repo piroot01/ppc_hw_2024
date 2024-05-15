@@ -1,6 +1,5 @@
 /*** PPC - HW03 ***/
 /* Tento soubor se neodevzdava. Brute dosadi vlastni */
-
 #include <iostream>
 #include <string>
 
@@ -12,6 +11,7 @@ using namespace std;
 
 #define TEST_L1
 #define TEST_L2
+#define TEST_L3
 
 int main(int argc, char** argv) {
     string levelarg;
