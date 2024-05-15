@@ -326,12 +326,12 @@ Matrix<T> kronecker(const Matrix<T>& lhs, const Matrix<T>& rhs)
 template<class T>
 inline std::ostream& operator<<(std::ostream& os, const Matrix<T>& matrix)
 {
-    os << std::right;
-
     if (matrix.data.empty())
     {
         os << '\n';
     }
+
+    os << std::right;
 
     std::size_t index = 0;
     for (const auto value : matrix.data)
